@@ -1,0 +1,18 @@
+RUN_THIS_CODE
+
+Follow these exact steps to start the Swing Score web UI and related helpers.
+Copy-paste each command into the terminal (zsh) while in the project root.
+
+1) ACTIVATE THE VENV
+   source .venv/bin/activate
+
+2) INSTALL MINIMAL DEPENDENCIES (only if you haven't already)
+   pip install flask plotly tabulate requests pandas
+
+3) START THE FLASK DEV SERVER (web UI)
+   python -m backend.app
+
+Then open this URL in your browser:
+  http://127.0.0.1:5000/
+
+If anything fails, copy the terminal output and paste it here and I'll help debug.
