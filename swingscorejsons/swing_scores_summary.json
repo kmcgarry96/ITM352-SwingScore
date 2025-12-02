@@ -1,0 +1,187 @@
+{
+  "generated_date": "2025-11-30",
+  "total_states": 7,
+  "total_counties": 511,
+  "year_comparison": "2020 \u2192 2022",
+  "states": {
+    "AZ": {
+      "county_count": 15,
+      "avg_swing_score": 0.292,
+      "max_swing_score": 0.762,
+      "min_swing_score": 0.175,
+      "top_county": {
+        "name": "MARICOPA",
+        "fips": 4013,
+        "score": 0.762
+      }
+    },
+    "GA": {
+      "county_count": 159,
+      "avg_swing_score": 0.222,
+      "max_swing_score": 0.728,
+      "min_swing_score": 0.056,
+      "top_county": {
+        "name": "FULTON",
+        "fips": 13121.0,
+        "score": 0.728
+      }
+    },
+    "MI": {
+      "county_count": 81,
+      "avg_swing_score": 0.236,
+      "max_swing_score": 0.643,
+      "min_swing_score": 0.058,
+      "top_county": {
+        "name": "WAYNE",
+        "fips": 26163,
+        "score": 0.643
+      }
+    },
+    "NC": {
+      "county_count": 100,
+      "avg_swing_score": 0.267,
+      "max_swing_score": 0.712,
+      "min_swing_score": 0.078,
+      "top_county": {
+        "name": "MECKLENBURG",
+        "fips": 37119,
+        "score": 0.712
+      }
+    },
+    "NV": {
+      "county_count": 17,
+      "avg_swing_score": 0.258,
+      "max_swing_score": 0.754,
+      "min_swing_score": 0.098,
+      "top_county": {
+        "name": "CLARK",
+        "fips": 32003,
+        "score": 0.754
+      }
+    },
+    "PA": {
+      "county_count": 67,
+      "avg_swing_score": 0.243,
+      "max_swing_score": 0.72,
+      "min_swing_score": 0.035,
+      "top_county": {
+        "name": "ALLEGHENY",
+        "fips": 42003,
+        "score": 0.72
+      }
+    },
+    "WI": {
+      "county_count": 72,
+      "avg_swing_score": 0.243,
+      "max_swing_score": 0.588,
+      "min_swing_score": 0.051,
+      "top_county": {
+        "name": "MILWAUKEE",
+        "fips": 55079,
+        "score": 0.588
+      }
+    }
+  },
+  "top_10_nationwide": [
+    {
+      "rank": 1,
+      "state": "AZ",
+      "county": "MARICOPA",
+      "fips": 4013,
+      "swing_score": 0.762,
+      "margin_change_score": 0.049,
+      "closeness_score": 1.0,
+      "turnout_score": 1.0
+    },
+    {
+      "rank": 2,
+      "state": "NV",
+      "county": "CLARK",
+      "fips": 32003,
+      "swing_score": 0.754,
+      "margin_change_score": 0.049,
+      "closeness_score": 0.967,
+      "turnout_score": 1.0
+    },
+    {
+      "rank": 3,
+      "state": "GA",
+      "county": "FULTON",
+      "fips": 13121.0,
+      "swing_score": 0.728,
+      "margin_change_score": 0.327,
+      "closeness_score": 0.586,
+      "turnout_score": 1.0
+    },
+    {
+      "rank": 4,
+      "state": "PA",
+      "county": "ALLEGHENY",
+      "fips": 42003,
+      "swing_score": 0.72,
+      "margin_change_score": 0.25,
+      "closeness_score": 0.629,
+      "turnout_score": 1.0
+    },
+    {
+      "rank": 5,
+      "state": "NC",
+      "county": "MECKLENBURG",
+      "fips": 37119,
+      "swing_score": 0.712,
+      "margin_change_score": 0.624,
+      "closeness_score": 0.328,
+      "turnout_score": 0.949
+    },
+    {
+      "rank": 6,
+      "state": "NC",
+      "county": "WAKE",
+      "fips": 37183,
+      "swing_score": 0.687,
+      "margin_change_score": 0.031,
+      "closeness_score": 0.716,
+      "turnout_score": 1.0
+    },
+    {
+      "rank": 7,
+      "state": "MI",
+      "county": "WAYNE",
+      "fips": 26163,
+      "swing_score": 0.643,
+      "margin_change_score": 0.267,
+      "closeness_score": 0.304,
+      "turnout_score": 1.0
+    },
+    {
+      "rank": 8,
+      "state": "MI",
+      "county": "MACOMB",
+      "fips": 26099,
+      "swing_score": 0.637,
+      "margin_change_score": 0.23,
+      "closeness_score": 0.989,
+      "turnout_score": 0.665
+    },
+    {
+      "rank": 9,
+      "state": "GA",
+      "county": "COBB",
+      "fips": 13067.0,
+      "swing_score": 0.628,
+      "margin_change_score": 0.134,
+      "closeness_score": 0.935,
+      "turnout_score": 0.721
+    },
+    {
+      "rank": 10,
+      "state": "PA",
+      "county": "BUCKS",
+      "fips": 42017,
+      "swing_score": 0.622,
+      "margin_change_score": 0.257,
+      "closeness_score": 0.965,
+      "turnout_score": 0.633
+    }
+  ]
+}
