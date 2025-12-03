@@ -10,7 +10,7 @@ Copy-paste each command into the terminal (zsh) while in the project root.
    pip install flask plotly tabulate requests pandas
 
 3) START THE FLASK DEV SERVER (web UI)
-   python -m backend.app
+   python3 -m backend.app
 
 Then open this URL in your browser:
   http://127.0.0.1:5000/
