@@ -3,17 +3,137 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Swing Score Explorer</title>
+    <title>Swing Score Analyzer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+      .hero-section {
+        background: white;
+        border-radius: 15px;
+        padding: 3rem;
+        margin: 2rem auto;
+        max-width: 1000px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      }
+      .hero-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #2d3748;
+        margin-bottom: 0.5rem;
+      }
+      .hero-subtitle {
+        color: #718096;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+      .stat-card {
+        background: #f7fafc;
+        border-radius: 10px;
+        padding: 1.5rem;
+        text-align: center;
+        border: 2px solid #e2e8f0;
+      }
+      .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #667eea;
+      }
+      .stat-label {
+        color: #718096;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+      }
+      .state-card {
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .state-card:hover {
+        border-color: #667eea;
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        transform: translateY(-2px);
+      }
+      .state-name {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #2d3748;
+      }
+      .info-box {
+        background: #edf2f7;
+        border-left: 4px solid #667eea;
+        padding: 1.5rem;
+        border-radius: 5px;
+        margin: 2rem 0;
+      }
+      .info-box h5 {
+        color: #2d3748;
+        font-weight: bold;
+        margin-bottom: 0.75rem;
+      }
+      .info-box p {
+        color: #4a5568;
+        margin-bottom: 0;
+      }
+    </style>
   </head>
-  <body class="p-4">
-    <div class="container">
-      <h1>Swing Score Explorer</h1>
-      <p>Select a swing state:</p>
-      <div class="list-group">
+  <body>
+    <div class="hero-section">
+      <h1 class="hero-title">🎯 Swing Score Analyzer</h1>
+      <p class="hero-subtitle">Data-driven campaign targeting for swing state counties</p>
+      
+      <!-- Overview Stats -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="stat-card">
+            <div class="stat-number">7</div>
+            <div class="stat-label">Swing States</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-card">
+            <div class="stat-number">400+</div>
+            <div class="stat-label">Counties Analyzed</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-card">
+            <div class="stat-number">2016-2020</div>
+            <div class="stat-label">Election Data</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- What is Swing Score? -->
+      <div class="info-box">
+        <h5>💡 What is a Swing Score?</h5>
+        <p>A quantitative metric combining <strong>competitiveness</strong>, <strong>voter turnout</strong>, and <strong>recent voting shifts</strong> to identify the highest-value counties for campaign investment. Higher scores indicate counties where campaign resources will have maximum impact.</p>
+      </div>
+
+      <!-- State Selection -->
+      <h3 class="mt-4 mb-3">Select a State to Analyze:</h3>
+      <div class="row">
         {% for s in states %}
-          <a class="list-group-item list-group-item-action" href="/state/{{s}}">{{s}}</a>
+          <div class="col-md-6 col-lg-4">
+            <a href="/state/{{s}}" class="text-decoration-none">
+              <div class="state-card">
+                <div class="state-name">{{ s }}</div>
+                <div class="text-muted small mt-1">View county analysis →</div>
+              </div>
+            </a>
+          </div>
         {% endfor %}
+      </div>
+
+      <!-- Footer -->
+      <div class="text-center mt-4 text-muted small">
+        <p>Data sourced from MIT Election Lab and U.S. Census Bureau</p>
       </div>
     </div>
   </body>
