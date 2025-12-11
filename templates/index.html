@@ -116,6 +116,37 @@
         <p>A quantitative metric combining <strong>competitiveness</strong>, <strong>voter turnout</strong>, and <strong>recent voting shifts</strong> to identify the highest-value counties for campaign investment. Higher scores indicate counties where campaign resources will have maximum impact.</p>
       </div>
 
+      <!-- Tier System Overview -->
+      {% if tier_stats %}
+      <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-header text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+          <h5 class="mb-0">🏆 Overall Tier Distribution (All 7 Swing States)</h5>
+        </div>
+        <div class="card-body" style="background: linear-gradient(to bottom, #f7fafc 0%, white 100%);">
+          <div class="row g-3">
+            {% for tier in tier_stats %}
+            <div class="col-lg-2 col-md-4 col-sm-6">
+              <div class="card h-100 text-center border-2" style="border-color: {% if tier.Tier == 'S' %}#ffd700{% elif tier.Tier == 'A' %}#667eea{% elif tier.Tier == 'B' %}#48bb78{% elif tier.Tier == 'C' %}#ed8936{% else %}#e53e3e{% endif %} !important;">
+                <div class="card-body">
+                  <div style="font-size: 3rem;" class="mb-2">{{ tier.Icon }}</div>
+                  <h5 class="mb-1">Tier {{ tier.Tier }}</h5>
+                  <p class="display-5 mb-1" style="font-weight: bold; color: #667eea;">{{ tier.Count }}</p>
+                  <p class="text-muted mb-2"><small>{{ tier.Percentage }}%</small></p>
+                  <hr class="my-2">
+                  <p class="small text-muted mb-0">{{ tier.Description.split(' - ')[0] }}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="alert alert-warning mt-4 mb-0 border-0 shadow-sm" role="alert">
+            <h6 class="alert-heading">⚡ The Elite Five</h6>
+            <p class="mb-0">Only <strong>{{ tier_stats[0].Count if tier_stats else 0 }} counties ({{ tier_stats[0].Percentage if tier_stats else 0 }}%)</strong> achieved elite S-tier status! These are the crown jewels for campaign investment with scores above 70%.</p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
       <!-- State Selection -->
       <h3 class="mt-4 mb-3">Select a State to Analyze:</h3>
       <div class="row">
