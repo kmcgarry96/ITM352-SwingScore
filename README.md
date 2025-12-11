@@ -5,6 +5,7 @@ This project computes "swing scores" for counties in major swing states and expo
 Quick status
 - The repository includes precomputed county-level swing scores in `swingscorejsons/swing_scores_all_states.json`.
 - I added CLI tools that load that JSON, compute (or recompute) final scores from normalized components, and export ranked CSVs to `outputs/`.
+- **NEW**: Tier system (S, A, B, C, D) classifies counties by swing potential - see [TIER_SYSTEM.md](TIER_SYSTEM.md) for details.
 
 Setup (one-time)
 1. Create & activate the virtual environment (macOS/Linux zsh):
@@ -51,5 +52,50 @@ fig.write_html('pa_swing_map.html')
 
 If you want, I can add a ready-to-run Plotly example that downloads the GeoJSON and produces an HTML map for one state.
 
+## Tier System (NEW!)
+
+Counties are classified into 5 tiers based on swing scores:
+- 🏆 **S-tier (70-100%)**: Elite unicorn counties - only 5 exist across all swing states!
+- ⭐ **A-tier (55-70%)**: Excellent top priority targets
+- ✅ **B-tier (40-55%)**: Good solid swing counties
+- 📊 **C-tier (25-40%)**: Moderate secondary targets
+- 📉 **D-tier (0-25%)**: Low priority
+
+**Usage:**
+```bash
+# View tier system guide
+python3 -m backend.tier_analysis --guide
+
+# Analyze all states with tier breakdown
+python3 -m backend.tier_analysis
+
+# Analyze specific state
+python3 -m backend.tier_analysis PA
+
+# Show only S-tier counties
+python3 -m backend.tier_analysis --tier S
+
+# Export tier summaries to CSV
+python3 -m backend.tier_analysis --export
+```
+
+**The Elite Five (S-tier counties):**
+1. 🏆 MARICOPA, AZ (76.2%)
+2. 🏆 CLARK, NV (75.4%)
+3. 🏆 FULTON, GA (72.8%)
+4. 🏆 ALLEGHENY, PA (72.0%)
+5. 🏆 MECKLENBURG, NC (71.2%)
+
+See [TIER_SYSTEM.md](TIER_SYSTEM.md) for full documentation.
+
+## Web Interface
+
+Run the Flask web UI to explore swing scores interactively:
+```bash
+python3 -m backend.app
+```
+Then open `http://127.0.0.1:5000/` in your browser.
+
 Questions / next steps
-- Add `--weights` UI (done). Next I can add the Plotly script, or create a short slide/paragraph for your final report. Which do you prefer?
+- Tier system implemented! Use it to prioritize campaign resources.
+- Flask web UI available for interactive exploration.
