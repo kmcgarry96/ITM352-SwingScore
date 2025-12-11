@@ -6,7 +6,7 @@ This directory contains all test files for the SwingScore application.
 
 ## 🚀 Quick Start
 
-### Run ALL Tests (Pretty Output) ⭐ RECOMMENDED
+### Run ALL Tests
 
 **Option 1: Shell Script (Easiest)**
 ```bash
