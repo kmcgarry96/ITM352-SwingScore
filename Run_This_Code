@@ -10,32 +10,9 @@ Copy-paste each command into the terminal (zsh) while in the project root.
    pip install flask plotly tabulate requests pandas
 
 3) START THE FLASK DEV SERVER (web UI)
-   python -m backend.app
+   python3 -m backend.app
 
-   Then open this URL in your browser:
-   http://127.0.0.1:5000/
-
-ALTERNATIVES / HELPERS
-
-- Run the interactive terminal UI (prompts for state):
-  python -m backend.interactive
-
-- Run the simple shell menu (choose a state from a numbered list):
-  chmod +x scripts/state_menu.sh   # one-time if needed
-  ./scripts/state_menu.sh
-
-- Non-interactive quick test (simulate choosing PA and decline map):
-  printf "6\nn\n" | ./scripts/state_menu.sh
-
-- Export full CSV for a state (example: PA):
-  python -m backend.export_full_state --state PA --out outputs/PA_all_counties.csv
-
-- Generate a Plotly map from a CSV (example: PA):
-  python -m backend.plotly_map --state PA --input outputs/PA_all_counties.csv --out outputs
-
-TROUBLESHOOTING NOTES
-- If you see: "the following arguments are required: --state/-s" — you tried to run the map script without the required --state flag. Use the command above or use the web UI / shell menu instead.
-- If the web page looks empty, confirm that outputs/PA_all_counties.csv exists and that `swingscorejsons/counties.geojson` is present (the app will download it if not).
-- If you get ImportError for Flask or Plotly, run the pip install command in step 2.
+Then open this URL in your browser:
+  http://127.0.0.1:5000/
 
 If anything fails, copy the terminal output and paste it here and I'll help debug.
