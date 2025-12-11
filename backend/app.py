@@ -133,6 +133,17 @@ def map_view(state: str):
         with open(geojson_path, 'r', encoding='utf-8') as fh:
             geojson = json.load(fh)
 
+    # Add tier classification for hover info
+    df = add_tier_column(df)
+    
+    # Add formatted hover text with county name and tier
+    df['hover_text'] = df.apply(
+        lambda row: f"<b>{row['county_name']}</b><br>" +
+                    f"Tier: {TIER_EMOJIS.get(row['tier'], '')} {row['tier']}<br>" +
+                    f"Score: {row['swing_score_100']:.1f}",
+        axis=1
+    )
+    
     fig = px.choropleth(
         df,
         geojson=geojson,
@@ -141,11 +152,21 @@ def map_view(state: str):
         color_continuous_scale='RdYlBu_r',
         range_color=(0, 100),
         scope='usa',
-        labels={'swing_score_100': 'Swing score (0-100)'}
+        labels={'swing_score_100': 'Swing Score'},
+        hover_name='county_name',
+        hover_data={
+            'county_fips': False,
+            'swing_score_100': ':.1f',
+            'tier': True
+        }
     )
 
     fig.update_geos(fitbounds='locations', visible=False)
-    fig.update_layout(margin={'r':0,'t':0,'l':0,'b':0})
+    fig.update_layout(
+        margin={'r':0,'t':0,'l':0,'b':0},
+        title=f'{state} County Swing Scores',
+        title_x=0.5
+    )
 
     # Return full HTML page containing the plotly figure
     return fig.to_html(full_html=True)

@@ -11,6 +11,7 @@ import json
 from typing import Optional
 import pandas as pd
 from .fips import format_fips
+from pathlib import Path as _Path
 
 
 def load_state_from_json(state_code: str, path: Optional[str] = None) -> pd.DataFrame:
@@ -51,6 +52,16 @@ def load_state_from_json(state_code: str, path: Optional[str] = None) -> pd.Data
         if c not in df.columns:
             df[c] = pd.NA
 
+    # If county_fips are missing or empty in this dataset, attempt to
+    # infer them from a local county GeoJSON (if available). This helps
+    # the map rendering code which expects 5-digit FIPS strings.
+    if df['county_fips'].isna().all() or df['county_fips'].astype(str).str.strip().eq('').all():
+        try:
+            _try_add_fips_from_geojson(df, state_code)
+        except Exception:
+            # best-effort only; if mapping fails, leave county_fips as-is
+            pass
+
     # Normalize county_fips to zero-padded 5-digit strings when present
     if 'county_fips' in df.columns:
         df['county_fips'] = df['county_fips'].apply(format_fips)
@@ -60,3 +71,67 @@ def load_state_from_json(state_code: str, path: Optional[str] = None) -> pd.Data
         df = df.sort_values('swing_score', ascending=False).reset_index(drop=True)
 
     return df
+
+
+def _try_add_fips_from_geojson(df: pd.DataFrame, state_code: str) -> None:
+    """
+    Mutates the provided DataFrame to add a `county_fips` column by matching
+    county names to a local county GeoJSON (if present).
+
+    Matching is fuzzy but prefers exact-case-insensitive matches after
+    stripping common suffixes like ' COUNTY'. If a match is found the
+    feature's `id` (expected to be the 5-digit FIPS) is used.
+
+    This function is best-effort and will not raise on failures.
+    """
+    geojson_path = _Path(__file__).parent.parent / 'swingscorejsons' / 'counties.geojson'
+    if not geojson_path.exists():
+        return
+
+    # Load the geojson features
+    try:
+        with open(geojson_path, 'r', encoding='utf-8') as fh:
+            gj = json.load(fh)
+    except Exception:
+        return
+
+    features = gj.get('features') or []
+    # Build a mapping from normalized county name -> fips
+    name_to_fips = {}
+    for feat in features:
+        props = feat.get('properties', {})
+        # Common property names for county name vary; try several
+        name = props.get('NAME') or props.get('name') or props.get('county') or props.get('COUNTY')
+        fip = feat.get('id') or props.get('GEOID') or props.get('FIPS') or props.get('fips')
+        if not name or not fip:
+            continue
+        # normalize
+        key = _normalize_county_name(str(name))
+        name_to_fips[key] = str(fip).zfill(5)
+
+    # For each row try to fill county_fips
+    def _map_row(row):
+        if pd.notna(row.get('county_fips')) and str(row.get('county_fips')).strip() != '':
+            return row.get('county_fips')
+        cname = row.get('county_name')
+        if not cname:
+            return pd.NA
+        key = _normalize_county_name(str(cname))
+        return name_to_fips.get(key, pd.NA)
+
+    df['county_fips'] = df.apply(_map_row, axis=1)
+    # Ensure formatting
+    df['county_fips'] = df['county_fips'].apply(lambda v: format_fips(v) if pd.notna(v) else v)
+
+
+def _normalize_county_name(name: str) -> str:
+    """Normalize county names for matching: uppercase, strip ' COUNTY', trim whitespace."""
+    s = name.strip().upper()
+    if s.endswith(' COUNTY'):
+        s = s[:-7].strip()
+    if s.endswith(' PARISH'):
+        s = s[:-6].strip()
+    # Remove common punctuation
+    for ch in ["'", '"', '.', ',']:
+        s = s.replace(ch, '')
+    return s
