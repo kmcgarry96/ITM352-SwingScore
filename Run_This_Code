@@ -6,8 +6,10 @@ Copy-paste each command into the terminal (zsh) while in the project root.
 1) ACTIVATE THE VENV
    source .venv/bin/activate
 
-2) INSTALL MINIMAL DEPENDENCIES (only if you haven't already)
-   pip install flask plotly tabulate requests pandas
+2) INSTALL REQUIRED PACKAGES (only if you haven't already)
+   Required packages: flask, plotly, pandas, requests
+   
+   pip install flask plotly pandas requests
 
 3) START THE FLASK DEV SERVER (web UI)
    python3 -m backend.app
